@@ -22,10 +22,11 @@ public class PlayList {
 	}
 	
 	public void addSong(Song song) {
+		playlist.add(song);
 		
 	}
 	
 	public void removeSong(Song song) {
-		
+		playlist.remove(song);
 	}
 }
