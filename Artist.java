@@ -1,14 +1,17 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Artist {
-	private final String name;
 	
-	public Artist (String name) {
-		this.name = name;
+	private ArrayList<String> artist;
+	
+	public Artist() {
+		this.artist = new ArrayList<String>();
 	}
 	
-	public String getName() {
-		return this.name;
+	public void addArtist(String name) {
+		this.artist.add(name);
 	}
 
 }
