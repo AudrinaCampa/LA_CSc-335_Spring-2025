@@ -11,6 +11,7 @@ public class MusicStore {
     private List<Album> albums;
     private List<Artist> artists;
     private String file;
+    readAlbumsList();
     
     public MusicStore(String filename ) {
     	this.songs = new ArrayList<>();
