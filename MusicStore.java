@@ -1,4 +1,3 @@
-
 package model;
 
 import java.io.BufferedReader;
@@ -47,6 +46,47 @@ public class MusicStore {
 		return artistNames;
 		
 	}
+    
+    public String searchSongByTitle(String title) {
+    	List<Song> results = new ArrayList<>();
+    	for (Song song : songs) {
+    		if (song.getTitle().equals(title)) {
+    			results.add(song);
+    		}
+    	}
+    	if (results.isEmpty()) {
+    		return "Song " + title + " not found";
+    	}
+    	
+    	return results.toString();
+    }
+    
+    public String searchSongByArtist(String artist) {
+    	List<String> results = new ArrayList<>();
+    	for (Song song : songs) {
+    		if (song.getArtist().equals(artist)) {
+    			results.add(song.getTitle());
+    		}
+    	}
+    	if (results.isEmpty()) {
+    		return "No songs found for " + artist;
+    	}
+    	return results.toString();    	
+    }
+    
+    public String searchAlbumByTitle(String title) {
+    	List<String> results = new ArrayList<>();
+    	for (Album album : albums) {
+    		if (album.getTitle().equals(title)) {
+    			results.add(album.getTitle());
+    		}
+    	}
+    	if (results.isEmpty()) {
+    		return "Album " + title + " not found";
+    	}
+    	
+    	return results.toString();
+    }
     
     public void readFile() {
         try {
