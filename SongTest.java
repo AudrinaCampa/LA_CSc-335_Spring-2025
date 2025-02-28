@@ -31,14 +31,14 @@ class SongTest {
 	@Test
 	public void testSetRatingThrowsException() {
 		try {
-			song.setRating(0); // Should throw an exception
+			song.setRating(0); 
 			
 		} catch (IllegalArgumentException e) {
 			assertEquals("Rating must be in range of 1 and 5", e.getMessage());
 	        
 		}
 		try {
-			song.setRating(6); // Should throw an exception
+			song.setRating(6); 
 	        
 		} catch (IllegalArgumentException e) {
 	            assertEquals("Rating must be in range of 1 and 5", e.getMessage());
