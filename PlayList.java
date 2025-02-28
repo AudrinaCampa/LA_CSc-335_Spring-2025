@@ -17,8 +17,14 @@ public class PlayList {
 		return this.name;
 	}
 	
-	public List<Song> getSongs() {
-		return this.playlist;
+	public List<String> getSongs() {
+		List<String> songTitles = new ArrayList<>();
+		for (Song song  : playlist) {
+			songTitles.add(song.getTitle());
+
+		}
+		return songTitles;
+		
 	}
 	
 	public void addSong(Song song) {
