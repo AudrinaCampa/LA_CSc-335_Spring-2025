@@ -18,12 +18,12 @@ public class Song {
 		return this.title;
 	}
 	
-	public Artist getArtist() {
-		return this.artist;
+	public String getArtist() {
+		return this.artist.getName();
 	}
 	
-	public Album getAlbum() {
-		return this.album;
+	public String getAlbum() {
+		return this.album.getTitle();
 	}
 	
 	public void setRating(int value) {
