@@ -37,4 +37,11 @@ public class Song {
 		return this.rating;
 	}
 
+	@Override
+	public String toString() {
+		return title + artist.getName() + album.getTitle();
+		
+	}
+
+
 }
