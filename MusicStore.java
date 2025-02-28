@@ -87,6 +87,19 @@ public class MusicStore {
     	
     	return results.toString();
     }
+    public String searchAlbumByArtist(String artist) {
+    	List<Album> results = new ArrayList<>();
+    	for (Album album : albums) {
+    		if (album.getArtists().equals(artist)) {
+    			results.add(album);
+    		}
+    	}
+    	if (results.isEmpty()) {
+    		return "No albums found for " + artist;
+    	}
+    	
+    	return results.toString();
+    }
     
     public void readFile() {
         try {
