@@ -15,16 +15,21 @@ public class Album {
 	
 	}
 	
-	public Artist getArtists() {
-		return this.artist; 
+	public String getArtists() {
+		return this.artist.getName(); 
 	}
 	
 	public String getTitle() {
 		return this.title;
 	}
 	
-	public List<Song> getSongs() {
-		return this.songs;
+	public List<String> getSongs() {
+		List<String> songTitles = new ArrayList<>();
+		for (Song song  : songs) {
+			songTitles.add(song.getTitle());
+
+		}
+		return songTitles;
 		
 	}
 	
@@ -33,5 +38,5 @@ public class Album {
 	}
 	
 	
-
 }
+	
