@@ -28,6 +28,10 @@ public class PlayList {
 	}
 	
 	public void addSong(Song song) {
+		for (Song otherSong : playlist) {
+			if (otherSong.getTitle().equals(song.getTitle()) && otherSong.getArtist().equals(song.getArtist()));
+			return;
+		}
 		playlist.add(song);
 		
 	}
