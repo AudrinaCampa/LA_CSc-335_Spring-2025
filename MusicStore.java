@@ -72,7 +72,7 @@ public class MusicStore {
 
 				            String songTitle;
 				            while (br.ready() && (songTitle = br.readLine()) != null) {
-				                if (!songTitle.trim().isEmpty()) {
+				                if (!songTitle.isEmpty()) {
 				                    Song song = new Song(songTitle, artist, album);
 				                    album.addSong(song);
 				                    addSong(song);
