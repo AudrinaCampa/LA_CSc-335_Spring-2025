@@ -36,12 +36,11 @@ public class Song {
 	public int getRating() {
 		return this.rating;
 	}
-
+	
 	@Override
 	public String toString() {
-		return title + artist.getName() + album.getTitle();
+		return "Title : " + title + ", Artist : " + artist.getName() + ", Album : " + album.getTitle();
 		
 	}
-
 
 }
