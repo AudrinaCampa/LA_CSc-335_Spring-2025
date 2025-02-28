@@ -1,54 +1,61 @@
+/**
+ * The model package is where our data is stored and managed. 
+ */
 package model;
 
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * This class stores the music from provided text files that include album
+ * information. With this class, we are storing the album information within an
+ * ArrayList.
+ *
+ */
 public class MusicStore {
-	
-	// Instance Variables
-	private String file;
-	private List<Song> songs;
-	private List<Album> albums;
-	
-	// Constructor
-	public MusicStore(String filename) {
-		this.file = filename;
-		this.songs = new ArrayList<>();
-		this.albums = new ArrayList<>();
-	}
 
-	public void readFile() {
+	// Instance variables
+	private Artist artist;
+	private Song songs;
+	private Album albums;
+	
+	private String aFile, fName;
+	
+	public MusicStore(String albumFile, String filename) {
+		this.aFile = albumFile;
+		this.fName = filename;
+		artist = new Artist();
+		albums = new Album();
+		songs = new Song();
+	}
+	
+	public void readAlbumFile() {
 		try {
-			FileReader fn = new FileReader(this.file); // calls the filename
-			BufferedReader br = new BufferedReader(fn);
-			
-			if(br.ready()) {
-				String line = br.readLine();
-				System.out.println(line);
+			BufferedReader br = new BufferedReader(new FileReader(this.aFile));
+
+			String content = br.readLine();
+			while (content != null) {
+				String[] line = content.split(",");
+				albums.addAlbum(line[0]);
+				artist.addArtist(line[1]);
+				content = br.readLine();
 			}
-			
-		}catch(IOException e) {
-			System.out.println("e");
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
-	public void addSong(Song song) {
-		songs.add(song);
-	}
 	
-	public void addAlbum(Album album) {
-		albums.add(album);
-	}
-	
-	public Song getSongByTitle (String title) {
-		return null;
-		
-	}
-	
-	public Artist getSongByArtist (Artist artist) {
-		return artist;
-		
+	public void readFileName() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(this.fName));
+			br.readLine();
+			String content;
+			while ((content = br.readLine()) != null) {
+				songs.addSong(content);
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 }
-
