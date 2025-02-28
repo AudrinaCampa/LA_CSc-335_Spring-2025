@@ -101,43 +101,25 @@ public class MusicStore {
     	return results.toString();
     }
     
-    public void readFile() {
-        try {
-            FileReader fn = new FileReader(this.file);
-            try (BufferedReader br = new BufferedReader(fn)) {
-				if (br.ready()) {
-				    String firstLine = br.readLine();
-				    //System.out.println("Raw File Data: " + firstLine);
-				    
-				    if (firstLine != null) {
-				        String[] details = firstLine.split(",");
-				        if (details.length >= 2) {
-				            String albumTitle = details[0];
-				            String artistName = details[1];
-				            //System.out.println("Album: " + albumTitle);
-				            //System.out.println("Artist: " + artistName);
+    
+    public void readAlbumsList() {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = br.readLine();
+            while (line != null) {
+                String[] details = line.split(",");
+                if (details.length < 2) 
+                	continue;
 
-				            Artist artist = new Artist(artistName);
-				            addArtist(artist);
-
-				            Album album = new Album(albumTitle, artist);
-				            addAlbum(album);
-
-				            String songTitle;
-				            while (br.ready() && (songTitle = br.readLine()) != null) {
-				                if (!songTitle.isEmpty()) {
-				                    Song song = new Song(songTitle, artist, album);
-				                    album.addSong(song);
-				                    addSong(song);
-				                    //System.out.println("Loaded song: " + songTitle);
-				                }
-				            }
-				        }
-				    }
-				}
-			}
+                String albumTitle = details[0];
+                String artistName = details[1];
+                String albumFileName = "src/model/" + albumTitle + "_" + artistName + ".txt";
+                readAlbumFile(albumFileName, artistName);
+            }
         } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.out.println("Error reading albums.txt: " + e.getMessage());
         }
+    }
+
+    public void readAlbumFile(String fileName, String artistName) {
     }
 }
