@@ -9,12 +9,14 @@ public class MusicStore {
 	
 	// Instance Variables
 	private String file;
-	private ArrayList<String> list;
+	private List<Song> songs;
+	private List<Album> albums;
 	
 	// Constructor
 	public MusicStore(String filename) {
 		this.file = filename;
-		this.list = new ArrayList<String>();
+		this.songs = new ArrayList<>();
+		this.albums = new ArrayList<>();
 	}
 
 	public void readFile() {
@@ -31,4 +33,22 @@ public class MusicStore {
 			System.out.println("e");
 		}
 	}
+	public void addSong(Song song) {
+		songs.add(song);
+	}
+	
+	public void addAlbum(Album album) {
+		albums.add(album);
+	}
+	
+	public Song getSongByTitle (String title) {
+		return null;
+		
+	}
+	
+	public Artist getSongByArtist (Artist artist) {
+		return artist;
+		
+	}
 }
+
