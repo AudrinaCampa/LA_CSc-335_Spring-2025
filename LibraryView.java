@@ -2,16 +2,17 @@ package view;
 
 import java.util.Scanner;
 
-import model.MusicStore;
 import model.PlayList;
 import model.Album;
 import model.LibraryModel;
+import model.MusicStore;
 import model.Artist;
 import model.Song;
 
 public class LibraryView {
 	public static void main(String[] args) {
 		MusicStore ms = new MusicStore("src/model/albums.txt");
+		LibraryModel lm = new LibraryModel();
 		
 		Scanner input = new Scanner(System.in);
 		
@@ -32,4 +33,7 @@ public class LibraryView {
 		
 		ms.searchSongByArtist(artistName);
 		ms.searchAlbumByTitle(albumName);
+		 
+	}
+		
 }
