@@ -29,11 +29,18 @@ public class PlayList {
 	
 	public void addSong(Song song) {
 		for (Song otherSong : playlist) {
-			if (otherSong.getTitle().equals(song.getTitle()) && otherSong.getArtist().equals(song.getArtist()));
-			return;
+			if (otherSong.getTitle().equals(song.getTitle())) {
+				if (otherSong.getArtist().equals(song.getArtist())) {
+					return;
+				}
+			}
+
 		}
 		playlist.add(song);
-		
+
 	}
-	
+
+	public void removeSong(Song song) {
+		playlist.remove(song);
+	}
 }
