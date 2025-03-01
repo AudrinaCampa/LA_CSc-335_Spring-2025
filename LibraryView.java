@@ -2,10 +2,10 @@ package view;
 
 import java.util.Scanner;
 
+import model.MusicStore;
 import model.PlayList;
 import model.Album;
 import model.LibraryModel;
-import model.MusicStore;
 import model.Artist;
 import model.Song;
 
@@ -31,9 +31,15 @@ public class LibraryView {
 		System.out.print("Search for Album by Title: ");
 		String albumName = searchAlbum.nextLine();
 		
-		ms.searchSongByArtist(artistName);
-		ms.searchAlbumByTitle(albumName);
-		 
-	}
+		System.out.println(ms.searchSongByArtist(artistName));
+		System.out.println(ms.searchAlbumByTitle(albumName));
 		
+		Scanner searchSong = new Scanner(System.in);
+		System.out.print("Search for Song by Title: ");
+		String songTitle = searchSong.nextLine();
+		
+		System.out.println(ms.searchSongByTitle(songTitle));
+		
+	}
+
 }
