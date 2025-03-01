@@ -5,11 +5,13 @@ import model.Song;
 import model.Album;
 import model.Artist;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MusicStoreTest {
 	
-	MusicStore store = new MusicStore("albums.txt");
+	MusicStore store = new MusicStore("src/model/albums.txt");
 	String title = "This is How Tomorrow Moves";
 	Artist artist = new Artist("Beabadoobee");
 	Album album = new Album(title,artist);
@@ -24,9 +26,11 @@ class MusicStoreTest {
     
     @Test
     public void testAddDuplicate() {
-    	store.addArtist(artist);
-    	store.addArtist(artist);
-    	assertEquals(1,store.getArtist().size());
+    	int initialSize = store.getArtist().size();
+    	Artist dupArtist = new Artist("Adele");
+    	store.addArtist(dupArtist);
+    	int newSize = store.getArtist().size();
+    	assertEquals(newSize,initialSize);
     }
 
     @Test
@@ -92,9 +96,7 @@ class MusicStoreTest {
     @Test
     void testSearchAlbumByArtist_Found() {
         store.addAlbum(album);
-
         String result = store.searchAlbumByArtist("Beabadoobee");
-        System.out.print(result);
         String expected = "[This is How Tomorrow Moves []]";
         assertEquals(expected, result);
     }
