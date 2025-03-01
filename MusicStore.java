@@ -11,13 +11,13 @@ public class MusicStore {
     private List<Album> albums;
     private List<Artist> artists;
     private String file;
-    readAlbumsList();
     
     public MusicStore(String filename ) {
     	this.songs = new ArrayList<>();
     	this.albums = new ArrayList<>();
     	this.artists = new ArrayList<>();
     	this.file = filename;
+    	readAlbumsList();
     	
     }
     
@@ -49,10 +49,10 @@ public class MusicStore {
 	}
     
     public String searchSongByTitle(String title) {
-    	List<Song> results = new ArrayList<>();
+    	List<String> results = new ArrayList<>();
     	for (Song song : songs) {
     		if (song.getTitle().equals(title)) {
-    			results.add(song);
+    			results.add(song.getTitle() + " "+ song.getArtist() + " " + song.getAlbum());
     		}
     	}
     	if (results.isEmpty()) {
@@ -66,7 +66,7 @@ public class MusicStore {
     	List<String> results = new ArrayList<>();
     	for (Song song : songs) {
     		if (song.getArtist().equals(artist)) {
-    			results.add(song.getTitle());
+    			results.add(song.getTitle() + " "+ song.getArtist() + " " + song.getAlbum());
     		}
     	}
     	if (results.isEmpty()) {
@@ -79,7 +79,7 @@ public class MusicStore {
     	List<String> results = new ArrayList<>();
     	for (Album album : albums) {
     		if (album.getTitle().equals(title)) {
-    			results.add(album.getTitle());
+    			results.add(album.getTitle() + " " + album.getSongs());
     		}
     	}
     	if (results.isEmpty()) {
@@ -88,11 +88,12 @@ public class MusicStore {
     	
     	return results.toString();
     }
+    
     public String searchAlbumByArtist(String artist) {
-    	List<Album> results = new ArrayList<>();
+    	List<String> results = new ArrayList<>();
     	for (Album album : albums) {
     		if (album.getArtists().equals(artist)) {
-    			results.add(album);
+    			results.add(album.getTitle() + " " + album.getSongs());
     		}
     	}
     	if (results.isEmpty()) {
@@ -102,18 +103,18 @@ public class MusicStore {
     	return results.toString();
     }
     
-    
-    public void readAlbumsList() {
+    private void readAlbumsList() {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line = br.readLine();
-            while (line != null) {
+            String line;
+            while ((line = br.readLine()) != null) {
                 String[] details = line.split(",");
                 if (details.length < 2) 
                 	continue;
 
-                String albumTitle = details[0];
-                String artistName = details[1];
+                String albumTitle = details[0].trim();
+                String artistName = details[1].trim();
                 String albumFileName = "src/model/" + albumTitle + "_" + artistName + ".txt";
+
                 readAlbumFile(albumFileName, artistName);
             }
         } catch (IOException e) {
@@ -131,7 +132,7 @@ public class MusicStore {
             if (details.length < 4) 
             	return;
 
-            String albumTitle = details[0];
+            String albumTitle = details[0].trim();        
             Artist artist = new Artist(artistName);
             addArtist(artist);
 
@@ -140,8 +141,8 @@ public class MusicStore {
 
             String songTitle;
             while ((songTitle = br.readLine()) != null) {
-                if (!songTitle.isEmpty()) {
-                    Song song = new Song(songTitle, artist, album);
+                if (!songTitle.trim().isEmpty()) {
+                    Song song = new Song(songTitle.trim(), artist, album);
                     album.addSong(song);
                     addSong(song);
                 }
@@ -150,7 +151,7 @@ public class MusicStore {
             System.out.println("Error reading file " + fileName + ": " + e.getMessage());
         }
     }
-
+    
 	public List<String> getSongs() {
 		List<String> songList = new ArrayList<>();
 		for (Song song : songs) {
