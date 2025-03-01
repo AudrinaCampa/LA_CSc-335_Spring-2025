@@ -65,9 +65,9 @@ class LibraryModelTest {
     @Test
     public void testAddArtist() {
     	store.addArtist(artist);
-    	//System.out.print(store.getArtist());
+    	System.out.print(store.getArtist());
         library.addArtist(artist, store);
-        //System.out.print(library.getAlbums());
+        System.out.print(library.getArtists());
         assertTrue(library.getArtists().contains(artist.getName()));
     }
 
@@ -133,6 +133,7 @@ class LibraryModelTest {
         assertTrue(result.contains(songOne.getTitle()));  
     }
 
+
     @Test
     void testSearchAlbumByTitleNotFound() {
         String result = library.searchAlbumByTitle("Album");
@@ -142,9 +143,12 @@ class LibraryModelTest {
     @Test
     void testSearchAlbumByArtistFound() {
     	store.addAlbum(album);
+    	album.addSong(songOne);
     	library.addAlbumToLib(album, store);
         String result = library.searchAlbumByArtist(album.getArtists());
-        assertTrue(result.contains(album.getArtists()));
+        String expected = "[This is How Tomorrow Moves [Take A Bite]]";
+        System.out.print(result);
+        assertEquals(expected,result);
     }
 
 	@Test
