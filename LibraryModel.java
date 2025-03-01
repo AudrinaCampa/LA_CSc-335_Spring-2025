@@ -43,7 +43,7 @@ public class LibraryModel {
 	}
 
 	public void addSongToLib(Song song, MusicStore store) {
-		if (store.getSongs().contains(song.getTitle()) && !userLib.contains(song) && !userLib.contains(song.getArtist()) {
+		if (store.getSongs().contains(song.getTitle()) && !userLib.contains(song)) {
 			userLib.add(song);
 		}
 	}
@@ -56,14 +56,11 @@ public class LibraryModel {
 
 	public void addArtist(Artist artist, MusicStore store) {
 		if (store.getArtist().contains(artist.getName()) && !artists.contains(artist)) {
-			for (Artist dupliacateArtist : artists) {
-				if (dupliacateArtist.getName().equals(artist.getName())) {
-					return;
-				}
+					return;				
 			}
-			artists.add(artist);
-		}
+		artists.add(artist);
 	}
+	
 
 	public void makePlaylist(String name) {
 		playlists.add(new PlayList(name));
@@ -106,15 +103,15 @@ public class LibraryModel {
 		}
 		return songNames;
 	}
-
 	public List<String> getArtists() {
-		List<String> artistNames = new ArrayList<>();
-		for (Song song : userLib) {
-			if (!artistNames.contains(song.getArtist())) {
-				artistNames.add(song.getArtist());
-			}
-		}
-		return artistNames;
+	    List<String> artistNames = new ArrayList<>();
+	    for (Artist artist : artists) {
+	    	if (!artistNames.contains(artist.getName())) {
+	            artistNames.add(artist.getName());
+	    	}
+	        
+	    }
+	    return artistNames;
 	}
 
 	public List<String> getAlbums() {
@@ -182,9 +179,9 @@ public class LibraryModel {
 
 	public String searchAlbumByTitle(String title) {
 		List<String> results = new ArrayList<>();
-		for (Song song : userLib) {
-			if (song.getAlbum() != null && song.getAlbum().equals(title)) {
-				results.add(song.getAlbum());
+		for (Album album : albums) {
+			if (album.getTitle() != null && album.getTitle().equals(title)) {
+				results.add(album.getTitle() + " " + album.getSongs());
 			}
 		}
 		if (results.isEmpty()) {
