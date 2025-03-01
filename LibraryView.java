@@ -9,10 +9,9 @@ import model.LibraryModel;
 import model.Artist;
 import model.Song;
 
-
 public class LibraryView {
-  public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) {
+		MusicStore ms = new MusicStore("src/model/albums.txt");
 		
 		Scanner input = new Scanner(System.in);
 		
@@ -27,5 +26,10 @@ public class LibraryView {
 		System.out.print("Search for Song by Artist: ");
 		String artistName = search.nextLine();
 		
-
+		Scanner searchAlbum = new Scanner(System.in);
+		System.out.print("Search for Album by Title: ");
+		String albumName = searchAlbum.nextLine();
+		
+		ms.searchSongByArtist(artistName);
+		ms.searchAlbumByTitle(albumName);
 }
