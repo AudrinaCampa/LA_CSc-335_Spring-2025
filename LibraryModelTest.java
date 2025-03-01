@@ -125,11 +125,12 @@ class LibraryModelTest {
     @Test
     void testSearchAlbumByTitleFound() {
         store.addAlbum(album);
+        store.addSong(songOne);
+        album.addSong(songOne);
         library.addAlbumToLib(album, store);
-        System.out.print(library.getAlbums());
         String result = library.searchAlbumByTitle(album.getTitle());
-        System.out.print(result);
-        assertEquals(album.getTitle(),result);
+        assertTrue(result.contains(album.getTitle()));  
+        assertTrue(result.contains(songOne.getTitle()));  
     }
 
     @Test
