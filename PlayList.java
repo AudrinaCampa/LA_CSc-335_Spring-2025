@@ -1,46 +1,49 @@
-package model;
+package model.tests;
 
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
-public class PlayList {
-	private List<Song> playlist;
-	private final String name;
+import org.junit.jupiter.api.Test;
+
+import model.Album;
+import model.Artist;
+import model.PlayList;
+import model.Song;
+
+class PlaylistTest {
+	PlayList playlist = new PlayList("playlist 1");
+	String title = "This is How Tomorrow Moves";
+	Artist artist = new Artist("Beabadoobee");
+	Album album = new Album(title,artist);
+	Song songOne = new Song("Take A Bite", artist, album);
+	Song songTwo = new Song("Ever Seen", artist, album);
 	
-	public PlayList (String name) {
-		this.name = name;
-		this.playlist = new ArrayList<>();
+
+
+	@Test
+	public void testGetName() {
+		assertEquals("playlist 1", playlist.getName());
+	}
+	
+	@Test
+	public void testGetSongs() {	
+		playlist.addSong(songTwo);
+		playlist.addSong(songTwo);
+		assertTrue(playlist.getSongs().contains("Title : " + songTwo.getTitle() + " Artist : " + songTwo.getArtist()));
+
+		
 		
 	}
 	
-	public String getName() {
-		return this.name;
-	}
-	
-	public List<String> getSongs() {
-		List<String> songTitles = new ArrayList<>();
-		for (Song song  : playlist) {
-			songTitles.add(song.getTitle());
-
-		}
-		return songTitles;
+	@Test
+	public void testRemoveSong() {
+		playlist.addSong(songOne);
+		playlist.addSong(songTwo);
 		
-	}
-	
-	public void addSong(Song song) {
-		for (Song otherSong : playlist) {
-			if (otherSong.getTitle().equals(song.getTitle())) {
-				if (otherSong.getArtist().equals(song.getArtist())) {
-					return;
-				}
-			}
-
-		}
-		playlist.add(song);
-
+		playlist.removeSong(songOne);
+		assertTrue(playlist.getSongs().get(0).contains("Title : " + songTwo.getTitle() + " Artist : " + songTwo.getArtist()));
 	}
 
-	public void removeSong(Song song) {
-		playlist.remove(song);
-	}
 }
+
