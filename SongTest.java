@@ -1,3 +1,4 @@
+
 package model.tests;
 
 import static org.junit.Assert.assertEquals;
@@ -31,14 +32,14 @@ class SongTest {
 	@Test
 	public void testSetRatingThrowsException() {
 		try {
-			song.setRating(0); 
+			song.setRating(0); // Should throw an exception
 			
 		} catch (IllegalArgumentException e) {
 			assertEquals("Rating must be in range of 1 and 5", e.getMessage());
 	        
 		}
 		try {
-			song.setRating(6); 
+			song.setRating(6); // Should throw an exception
 	        
 		} catch (IllegalArgumentException e) {
 	            assertEquals("Rating must be in range of 1 and 5", e.getMessage());
@@ -61,4 +62,5 @@ class SongTest {
 	}
 	
 }
+
 

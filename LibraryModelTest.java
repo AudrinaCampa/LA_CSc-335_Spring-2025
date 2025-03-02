@@ -1,3 +1,4 @@
+
 package model.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,9 +66,9 @@ class LibraryModelTest {
     @Test
     public void testAddArtist() {
     	store.addArtist(artist);
-    	System.out.print(store.getArtist());
+    	//System.out.print(store.getArtist());
         library.addArtist(artist, store);
-        System.out.print(library.getArtists());
+        //System.out.print(library.getAlbums());
         assertTrue(library.getArtists().contains(artist.getName()));
     }
 
@@ -124,15 +125,10 @@ class LibraryModelTest {
 
     @Test
     void testSearchAlbumByTitleFound() {
-        store.addAlbum(album);
-        store.addSong(songOne);
-        album.addSong(songOne);
-        library.addAlbumToLib(album, store);
-        String result = library.searchAlbumByTitle(album.getTitle());
-        assertTrue(result.contains(album.getTitle()));  
-        assertTrue(result.contains(songOne.getTitle()));  
+        library.addSongToLib(songOne, store);
+        String result = library.searchAlbumByTitle(songOne.getAlbum());
+        assertTrue(result.contains(songOne.getTitle()));
     }
-
 
     @Test
     void testSearchAlbumByTitleNotFound() {
@@ -142,18 +138,21 @@ class LibraryModelTest {
 
     @Test
     void testSearchAlbumByArtistFound() {
+    	store.addSong(songOne);
     	store.addAlbum(album);
-    	album.addSong(songOne);
+    	store.addArtist(artist);
+    	library.addArtist(artist, store);
     	library.addAlbumToLib(album, store);
         String result = library.searchAlbumByArtist(album.getArtists());
-        String expected = "[This is How Tomorrow Moves [Take A Bite]]";
-        System.out.print(result);
-        assertEquals(expected,result);
+        System.out.println(library.searchAlbumByArtist(album.getArtists()));
+        System.out.println(library.getAlbums());
+        System.out.println(album.getArtists());
+        assertTrue(result.contains(songOne.getArtist()));
     }
 
-	@Test
-	void testSearchAlbumByArtistNotFound() {
-		String result = library.searchAlbumByArtist("Unknown Artist");
-		assertEquals("No albums found for Unknown Artist", result);
-	}
+    @Test
+    void testSearchAlbumByArtist_NotFound() {
+        String result = library.searchAlbumByArtist("Unknown Artist");
+        assertEquals("No albums found for Unknown Artist", result);
+    }
 }

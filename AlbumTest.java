@@ -1,3 +1,4 @@
+
 package model.tests;
 
 import static org.junit.Assert.assertEquals;

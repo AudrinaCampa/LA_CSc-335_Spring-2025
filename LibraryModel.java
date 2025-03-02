@@ -55,11 +55,17 @@ public class LibraryModel {
 	}
 
 	public void addArtist(Artist artist, MusicStore store) {
+
 		if (store.getArtist().contains(artist.getName())) {
 			if (!artists.contains(artist)) {
 				artists.add(artist);
 			}
 		}
+
+		if (store.getArtist().contains(artist.getName()) && !artists.contains(artist)) {
+					return;				
+			}
+		artists.add(artist);
 	}
 	
 
@@ -156,6 +162,12 @@ public class LibraryModel {
 		for (Song song : userLib) {
 			if (song.getTitle().equals(title)) {
 				results.add(song.getTitle() + " "+ song.getArtist() + " " + song.getAlbum());
+
+		List<Song> results = new ArrayList<>();
+		for (Song song : userLib) {
+			if (song.getTitle().equals(title)) {
+				results.add(song);
+
 			}
 		}
 		if (results.isEmpty()) {
@@ -169,7 +181,10 @@ public class LibraryModel {
 		List<String> results = new ArrayList<>();
 		for (Song song : userLib) {
 			if (song.getArtist().equals(artist)) {
+ 
 				results.add(song.getTitle() + " "+ song.getArtist() + " " + song.getAlbum());
+				results.add(song.getTitle());
+
 			}
 		}
 		if (results.isEmpty()) {
@@ -183,6 +198,9 @@ public class LibraryModel {
 		for (Album album : albums) {
 			if (album.getTitle() != null && album.getTitle().equals(title)) {
 				results.add(album.getTitle() + " " + album.getSongs());
+		for (Song song : userLib) {
+			if (song.getAlbum() != null && song.getAlbum().equals(title)) {
+				results.add(song.getAlbum());
 			}
 		}
 		if (results.isEmpty()) {
@@ -197,6 +215,9 @@ public class LibraryModel {
 		for (Album album : albums) {
 			if (album.getArtists() != null && album.getArtists().equals(artist)) {
 				results.add(album.getTitle() + " " + album.getSongs());
+		for (Song song : userLib) {
+			if (song.getArtist() != null && song.getArtist().equals(artist)) {
+				results.add(song.getArtist());
 			}
 		}
 		if (results.isEmpty()) {

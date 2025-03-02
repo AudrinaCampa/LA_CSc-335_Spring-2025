@@ -40,6 +40,11 @@ public class LibraryView {
 		
 		System.out.println(ms.searchSongByTitle(songTitle));
 		
+		Scanner setRating = new Scanner(System.in);
+		System.out.print("Rate Song: ");
+		String rating = setRating.nextLine();
+		int rate = Integer.parseInt(rating);
+		
 	}
 
 }

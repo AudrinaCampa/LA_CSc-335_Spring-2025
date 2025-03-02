@@ -1,3 +1,4 @@
+
 package model;
 
 public class Artist {
@@ -11,4 +12,3 @@ public class Artist {
 		return this.name;
 	}
 
-}
