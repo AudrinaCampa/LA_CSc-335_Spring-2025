@@ -1,7 +1,9 @@
-
 package model.tests;
 
+
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import model.Album;
@@ -17,7 +19,7 @@ class SongTest {
 	
 	@Test
 	public void testToString() {
-		assertEquals("Title : Take A Bite, Artist : Beabadoobee, Album : This is How Tomorrow Moves", song.toString());
+		assertEquals("Take A Bite by Beabadoobee, Album : This is How Tomorrow Moves",song.toString());
 		
 	}
 	
@@ -62,5 +64,6 @@ class SongTest {
 	}
 	
 }
+
 
 
