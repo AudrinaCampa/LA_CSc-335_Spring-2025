@@ -75,12 +75,12 @@ public class MusicStore {
 	}
 
 	public List<String> getArtist() {
-		List<String> songList = new ArrayList<>();
-		for (String songTitle : songTitles.keySet()) {
+		List<String> artistList = new ArrayList<>();
+		for (Artist artistName : artists.keySet()) {
 			// add keys to list
-			songList.add(songTitle);
+			artistList.add(artistName.getName());
 		}
-		return songList;
+		return artistList;
 	}
 
 	private void readAlbumsList() {
