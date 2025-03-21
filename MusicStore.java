@@ -48,21 +48,40 @@ public class MusicStore {
 			newSongList.add(new Song(song)); // add copy
 			songTitles.put(song.getTitle(), newSongList); // add list to map
 		}
+	
 
-		Artist artist = new Artist(song.getArtist());
-		addArtist(artist);
-		List<Song> artistSongs = artists.get(artist);
-		artistSongs.add(new Song(song));
+		
 	}
 
 	public void addAlbum(Album album) {
-		albums.put(album, album.getSongs());
+	    if (!albums.containsKey(album)) {
+	        albums.put(album, new ArrayList<>(album.getSongs()));
+	    }
+
+	    for (Song song : album.getSongs()) {
+	        addSong(song);
+	    }
+	}
+	
+	public void addArtist(Artist artist) {
+	    if (!artists.containsKey(artist)) {
+	        artists.put(artist, new ArrayList<>());
+	    }
 	}
 
-	public void addArtist(Artist artist) {
-		if (!artists.containsKey(artist)) {
-			artists.put(artist, new ArrayList<>());
+	public void addArtistSongs() {
+		for (List<Song> songList : songTitles.values()) {
+			for (Song song : songList) {
+				Artist artist = new Artist(song.getArtist());
+				
+				if (!artists.containsKey(artist)) {
+					artists.put(artist, new ArrayList<>());
+				}
+				artists.get(artist).add(song);
+			}
+			
 		}
+		
 	}
 
 	public List<String> getSongs() {
@@ -81,6 +100,15 @@ public class MusicStore {
 			artistList.add(artistName.getName());
 		}
 		return artistList;
+	}
+
+	public List<String> getAlbums() {
+		List<String> albumList = new ArrayList<>();
+		for (Album albumName : albums.keySet()) {
+			// add keys to list
+			albumList.add(albumName.getTitle());
+		}
+		return albumList;
 	}
 
 	private void readAlbumsList() {
@@ -131,5 +159,9 @@ public class MusicStore {
 			System.out.println("Error reading file " + fileName + ": " + e.getMessage());
 		}
 	}
+	
+	
+	
+
 
 }
