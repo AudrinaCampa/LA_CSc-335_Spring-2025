@@ -14,6 +14,14 @@ public class Song {
 		this.rating = null;
 	}
 	
+	// copy constructor (for adding song to album, avoiding escaping reference)
+	public Song (Song other) {
+		this.title = other.title;
+		this.artist = other.artist;
+		this.album = other.album;
+		this.rating = other.rating;
+	}
+	
 	public String getTitle() {
 		return this.title;
 	}
@@ -39,7 +47,7 @@ public class Song {
 	
 	@Override
 	public String toString() {
-		return "Title : " + title + ", Artist : " + artist.getName() + ", Album : " + album.getTitle();
+		return title + " by " + artist.getName() + ", Album : " + album.getTitle();
 		
 	}
 
