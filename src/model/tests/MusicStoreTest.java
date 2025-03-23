@@ -6,10 +6,6 @@ import model.Album;
 import model.Artist;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
-
 class MusicStoreTest {
 
 	MusicStore store = new MusicStore("src/model/albums.txt");
