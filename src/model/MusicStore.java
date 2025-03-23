@@ -158,50 +158,73 @@ public class MusicStore {
 		}
 	}
 	
-	public void printDebugInfo() {
-	    // Print songTitles HashMap size
-	    System.out.println("\n===== SONG TITLES HASHMAP DEBUG =====");
-	    System.out.println("Total unique song titles: " + songTitles.size());
-	    int totalSongs = 0;
-	    for (List<Song> songs : songTitles.values()) {
-	        totalSongs += songs.size();
-	    }
-	    System.out.println("Total songs (including different versions): " + totalSongs);
+	public String searchSongbyArtist(String artistName) {
+		List<String> results = new ArrayList<>();
 	    
-	    // Print albums HashMap details
-	    System.out.println("\n===== ALBUMS HASHMAP DEBUG =====");
-	    System.out.println("Total albums: " + albums.size());
-	    System.out.println("Albums with their keys and hashcodes:");
-	    for (Album album : albums.keySet()) {
-	        System.out.println("Album key: " + album.getTitle() + " by " + album.getArtists() + 
-	                           " (hashCode: " + album.hashCode() + ")");
-	        System.out.println("  Number of songs in this album: " + albums.get(album).size());
-	        System.out.println("  Songs:");
-	        for (Song song : albums.get(album)) {
-	            System.out.println("    - " + song.getTitle());
-	        }
-	    }
-	    
-	    // Print artists HashMap details
-	    System.out.println("\n===== ARTISTS HASHMAP DEBUG =====");
-	    System.out.println("Total artists: " + artists.size());
-	    System.out.println("Artists with their keys and hashcodes:");
 	    for (Artist artist : artists.keySet()) {
-	        System.out.println("Artist key: " + artist.getName() + 
-	                           " (hashCode: " + artist.hashCode() + ")");
-	        System.out.println("  Number of songs by this artist: " + artists.get(artist).size());
-	        System.out.println("  Songs:");
-	        for (Song song : artists.get(artist)) {
-	            System.out.println("    - " + song.getTitle() + " (Album: " + song.getAlbum() + ")");
+	        if (artist.getName().equals(artistName)) {
+	            // get songs for the matching artist
+	            List<Song> songs = artists.get(artist);
+	            for (Song song : songs) {
+	                results.add(song.getTitle() + " by " + artist.getName() + " from album " + song.getAlbum());
+	            }
 	        }
 	    }
+	    
+	    if (results.isEmpty()) {
+	        return "No songs found for " + artistName;
+	    }
+	    
+	    return results.toString();
 	}
 	
-	public static void main(String[] args) {
-	    // Create a MusicStore instance with your albums file
-	    MusicStore store = new MusicStore("src/model/albums.txt");
-	    
-	    // Call the debug method to print detailed information
-	    store.printDebugInfo();
+	public String searchSongByTitle(String title) {
+		if (!songTitles.containsKey(title)) {
+			return "Song " + title + " not found.";
+		}
+		
+		List<Song> songNames = songTitles.get(title);
+		List<String> results = new ArrayList<>();
+		
+		for (Song song : songNames) {
+			results.add(song.getTitle() + " by " + song.getArtist() + " from album " + song.getAlbum());
+			
+		}
+		
+		return results.toString();
+		
+	
 	}
+	
+	public String searchAlbumByArtist(String artist) {
+		List<String> results = new ArrayList<>();
+		for (Album album : albums.keySet()) {
+			if (album.getArtists().equals(artist)) {
+				results.add(album.getTitle() + ": " + album.getSongs());
+			}
+		
+		}
+		
+		if (results.isEmpty()) {
+			return "No albums found for " + artist;
+		}
+			
+		return results.toString();
+		
+	}
+	
+	public String searchAlbumByTitle(String title) {
+		List<String> results = new ArrayList<>();
+	    for (Album album : albums.keySet()) {
+	        if (album.getTitle().equals(title)) {
+	            results.add(album.getTitle() + " " + album.getSongs());
+	        }
+	    }
+	    
+	    if (results.isEmpty()) {
+	    	return "No albums found for " + title;
+	    }
+	    return results.toString();
+	}
+
 }

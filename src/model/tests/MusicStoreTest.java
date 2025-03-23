@@ -19,15 +19,17 @@ class MusicStoreTest {
 	Song songOne = new Song("Take A Bite", artist, album);
 	Song songTwo = new Song("Ever Seen", artist, album);
 
+
 	@Test
 	public void testAddSong() {
 	
 		
 		 store.addSong(songOne);
 	     store.addSong(songTwo);
+	     album.addSong(songOne);
 	     store.addAlbum(album);
 	     store.addArtistSongs();
-	     System.out.println(store.getArtist());
+	     System.out.println(store.searchAlbumByArtist("Adele"));
 	     
 	     
 	       
