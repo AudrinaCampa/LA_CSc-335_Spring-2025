@@ -29,6 +29,7 @@ public class MusicStore {
 			// check if duplicate song with same artist
 			boolean isDuplicate = false;
 			for (Song existingSong : existingSongs) {
+				// compare the artists name
 				// if the song with the same artist exists dont add
 				if (existingSong.getArtist().equals(song.getArtist())) {
 					isDuplicate = true;
@@ -157,3 +158,50 @@ public class MusicStore {
 		}
 	}
 	
+	public void printDebugInfo() {
+	    // Print songTitles HashMap size
+	    System.out.println("\n===== SONG TITLES HASHMAP DEBUG =====");
+	    System.out.println("Total unique song titles: " + songTitles.size());
+	    int totalSongs = 0;
+	    for (List<Song> songs : songTitles.values()) {
+	        totalSongs += songs.size();
+	    }
+	    System.out.println("Total songs (including different versions): " + totalSongs);
+	    
+	    // Print albums HashMap details
+	    System.out.println("\n===== ALBUMS HASHMAP DEBUG =====");
+	    System.out.println("Total albums: " + albums.size());
+	    System.out.println("Albums with their keys and hashcodes:");
+	    for (Album album : albums.keySet()) {
+	        System.out.println("Album key: " + album.getTitle() + " by " + album.getArtists() + 
+	                           " (hashCode: " + album.hashCode() + ")");
+	        System.out.println("  Number of songs in this album: " + albums.get(album).size());
+	        System.out.println("  Songs:");
+	        for (Song song : albums.get(album)) {
+	            System.out.println("    - " + song.getTitle());
+	        }
+	    }
+	    
+	    // Print artists HashMap details
+	    System.out.println("\n===== ARTISTS HASHMAP DEBUG =====");
+	    System.out.println("Total artists: " + artists.size());
+	    System.out.println("Artists with their keys and hashcodes:");
+	    for (Artist artist : artists.keySet()) {
+	        System.out.println("Artist key: " + artist.getName() + 
+	                           " (hashCode: " + artist.hashCode() + ")");
+	        System.out.println("  Number of songs by this artist: " + artists.get(artist).size());
+	        System.out.println("  Songs:");
+	        for (Song song : artists.get(artist)) {
+	            System.out.println("    - " + song.getTitle() + " (Album: " + song.getAlbum() + ")");
+	        }
+	    }
+	}
+	
+	public static void main(String[] args) {
+	    // Create a MusicStore instance with your albums file
+	    MusicStore store = new MusicStore("src/model/albums.txt");
+	    
+	    // Call the debug method to print detailed information
+	    store.printDebugInfo();
+	}
+}
