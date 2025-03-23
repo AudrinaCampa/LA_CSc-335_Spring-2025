@@ -19,7 +19,6 @@ public class MusicStore {
 		this.artists = new HashMap<>();
 		this.file = filename;
 		readAlbumsList();
-
 	}
 
 	public void addSong(Song song) {
@@ -30,7 +29,6 @@ public class MusicStore {
 			// check if duplicate song with same artist
 			boolean isDuplicate = false;
 			for (Song existingSong : existingSongs) {
-				// compare the artists name
 				// if the song with the same artist exists dont add
 				if (existingSong.getArtist().equals(song.getArtist())) {
 					isDuplicate = true;
@@ -48,18 +46,11 @@ public class MusicStore {
 			newSongList.add(new Song(song)); // add copy
 			songTitles.put(song.getTitle(), newSongList); // add list to map
 		}
-	
-
-		
 	}
 
 	public void addAlbum(Album album) {
 	    if (!albums.containsKey(album)) {
-	        albums.put(album, new ArrayList<>(album.getSongs()));
-	    }
-
-	    for (Song song : album.getSongs()) {
-	        addSong(song);
+	        albums.put(album, new ArrayList<>());
 	    }
 	}
 	
@@ -70,18 +61,16 @@ public class MusicStore {
 	}
 
 	public void addArtistSongs() {
-		for (List<Song> songList : songTitles.values()) {
-			for (Song song : songList) {
-				Artist artist = new Artist(song.getArtist());
-				
-				if (!artists.containsKey(artist)) {
-					artists.put(artist, new ArrayList<>());
-				}
-				artists.get(artist).add(song);
-			}
-			
-		}
-		
+	    for (List<Song> songList : songTitles.values()) {
+	        for (Song song : songList) {
+	            Artist artist = new Artist(song.getArtist());
+	            
+	            if (!artists.containsKey(artist)) {
+	                artists.put(artist, new ArrayList<>());
+	            }
+	            artists.get(artist).add(song);  // add song to the artist song list
+	        }
+	    }
 	}
 
 	public List<String> getSongs() {
@@ -125,6 +114,9 @@ public class MusicStore {
 
 				readAlbumFile(albumFileName, artistName);
 			}
+			// add artist songs to hash map
+			addArtistSongs();
+		
 		} catch (IOException e) {
 			System.out.println("Error reading albums.txt: " + e.getMessage());
 		}
@@ -153,6 +145,11 @@ public class MusicStore {
 					Song song = new Song(songTitle.trim(), artist, album);
 					album.addSong(song);
 					addSong(song);
+					
+					// add albums songs to hash map
+					if (albums.containsKey(album)) {
+					    albums.get(album).add(song);
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -160,8 +157,3 @@ public class MusicStore {
 		}
 	}
 	
-	
-	
-
-
-}
